@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField, Min(0)]
@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     private InputAction moveAction;
     private InputAction interactAction;
+    private Rigidbody2D rb;
 
     void OnEnable()
     {
@@ -30,18 +31,23 @@ public class PlayerController : MonoBehaviour
     {
         moveAction = InputSystem.actions.FindAction("Move");
         interactAction = InputSystem.actions.FindAction("Interact");
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        Move();
         InteractWithSurronding();
+    }
+
+    void FixedUpdate()
+    {
+        Move();
     }
 
     private void Move()
     {
         Vector3 moveAmount = moveAction.ReadValue<Vector2>();
-        transform.position += speed * Time.deltaTime * moveAmount;
+        rb.linearVelocity = speed * moveAmount;
     }
 
     private void InteractWithSurronding()
