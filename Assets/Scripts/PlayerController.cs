@@ -41,13 +41,13 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
+        Move(Time.fixedDeltaTime);
     }
 
-    private void Move()
+    private void Move(float deltaTime)
     {
         Vector3 moveAmount = moveAction.ReadValue<Vector2>();
-        rb.linearVelocity = speed * moveAmount;
+        rb.MovePosition(transform.position + speed * deltaTime * moveAmount);
     }
 
     private void InteractWithSurronding()
