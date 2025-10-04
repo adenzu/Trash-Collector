@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,7 +7,8 @@ using UnityEngine.AI;
 public class NPCController : MonoBehaviour
 {
 
-    private readonly Destinations destinations;
+    [SerializeField]
+    private Destinations destinations;
 
     private NavMeshAgent navMeshAgent;
 
@@ -40,9 +42,18 @@ public class NPCController : MonoBehaviour
         return !navMeshAgent.hasPath || navMeshAgent.isStopped;
     }
 
+    [Serializable]
     private class Destinations
     {
-        private readonly Queue<Vector3> positions = new();
+        [SerializeField]
+        private Vector3[] initialPositions;
+
+        private readonly Queue<Vector3> positions;
+
+        public Destinations()
+        {
+            positions = new Queue<Vector3>(initialPositions);
+        }
 
         public Vector3 Pop()
         {
