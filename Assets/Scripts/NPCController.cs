@@ -11,6 +11,9 @@ public class NPCController : MonoBehaviour
     [SerializeField]
     private Destinations destinations;
 
+    [SerializeField]
+    private StateMachine stateMachine;
+
     private NavMeshAgent navMeshAgent;
 
     void Awake()
@@ -23,11 +26,17 @@ public class NPCController : MonoBehaviour
     void Start()
     {
         destinations.Initialize();
+        stateMachine.Initialize();
     }
 
     void Update()
     {
         Move();
+    }
+
+    public void DecideOnNextMove(bool[] result)
+    {
+        result[0] = destinations.Finished();
     }
 
     private void Move()
