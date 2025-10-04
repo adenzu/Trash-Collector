@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,14 +6,9 @@ using UnityEngine.AI;
 public class NPCController : MonoBehaviour
 {
 
-    [SerializeField, Min(0.1f)]
-    private float destinationSelectionRadius = 1.0f;
-
-    [SerializeField, Min(0.1f)]
-    private float moveEverySeconds = 5.0f;
+    private readonly Destinations destinations;
 
     private NavMeshAgent navMeshAgent;
-    private float sinceLastMove = 0.0f;
 
     void Awake()
     {
@@ -23,18 +19,39 @@ public class NPCController : MonoBehaviour
 
     void Update()
     {
-        if (sinceLastMove < 0.0f)
-        {
-            Vector3 randomOffset = Random.insideUnitCircle.normalized * destinationSelectionRadius;
-            navMeshAgent.SetDestination(transform.position + randomOffset);
-            sinceLastMove = moveEverySeconds;
-        }
-
-        sinceLastMove -= Time.deltaTime;
+        Move();
     }
 
-    void OnDrawGizmosSelected()
+    private void Move()
     {
-        Gizmos.DrawWireSphere(transform.position, destinationSelectionRadius);
+        if (ReadyToMove())
+        {
+            MoveToNextDestination();
+        }
+    }
+
+    private void MoveToNextDestination()
+    {
+        navMeshAgent.SetDestination(destinations.Pop());
+    }
+
+    private bool ReadyToMove()
+    {
+        return !navMeshAgent.hasPath || navMeshAgent.isStopped;
+    }
+
+    private class Destinations
+    {
+        private readonly Queue<Vector3> positions = new();
+
+        public Vector3 Pop()
+        {
+            return positions.Dequeue();
+        }
+
+        public void Add(Vector3 position)
+        {
+            positions.Enqueue(position);
+        }
     }
 }
