@@ -6,10 +6,10 @@ using UnityEngine.Events;
 public class StateMachine
 {
     [SerializeField]
-    private StateMatrix stateMatrix;
+    private string initialState;
 
     [SerializeField]
-    private string initialState;
+    private StateMatrix stateMatrix;
 
     private string state;
 
