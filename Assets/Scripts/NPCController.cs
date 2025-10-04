@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,6 +20,11 @@ public class NPCController : MonoBehaviour
         navMeshAgent.updateUpAxis = false;
     }
 
+    void Start()
+    {
+        destinations.Initialize();
+    }
+
     void Update()
     {
         Move();
@@ -34,28 +40,28 @@ public class NPCController : MonoBehaviour
 
     private void MoveToNextDestination()
     {
-        navMeshAgent.SetDestination(destinations.Pop());
+        navMeshAgent.SetDestination(destinations.Next());
     }
 
     private bool ReadyToMove()
     {
-        return !navMeshAgent.hasPath || navMeshAgent.isStopped;
+        return !destinations.Finished() && (!navMeshAgent.hasPath || navMeshAgent.isStopped);
     }
 
     [Serializable]
     private class Destinations
     {
         [SerializeField]
-        private Vector3[] initialPositions;
+        private Transform[] initialPositions;
 
-        private readonly Queue<Vector3> positions;
+        private Queue<Vector3> positions;
 
-        public Destinations()
+        public void Initialize()
         {
-            positions = new Queue<Vector3>(initialPositions);
+            positions = new Queue<Vector3>(initialPositions.Select(transform => transform.position));
         }
 
-        public Vector3 Pop()
+        public Vector3 Next()
         {
             return positions.Dequeue();
         }
@@ -63,6 +69,11 @@ public class NPCController : MonoBehaviour
         public void Add(Vector3 position)
         {
             positions.Enqueue(position);
+        }
+
+        public bool Finished()
+        {
+            return 0 == positions.Count;
         }
     }
 }
