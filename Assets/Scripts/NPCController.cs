@@ -16,6 +16,10 @@ public class NPCController : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
 
+    private float shopTime = 0;
+
+    private bool finishedShopping = false;
+
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -31,6 +35,14 @@ public class NPCController : MonoBehaviour
 
     void Update()
     {
+        if (shopTime > 0)
+        {
+            shopTime -= Time.deltaTime;
+            if (shopTime <= 0)
+            {
+                finishedShopping = true;
+            }
+        }
         stateMachine.NextState();
     }
 
@@ -42,6 +54,17 @@ public class NPCController : MonoBehaviour
     public void ArrivedToDestination(bool[] bools)
     {
         bools[0] = !navMeshAgent.hasPath;
+    }
+
+    public void FinishedShopping(bool[] bools)
+    {
+        bools[0] = finishedShopping;
+    }
+
+    public void StartShopTime()
+    {
+        shopTime = 5.0f;
+        finishedShopping = false;
     }
 
     [Serializable]

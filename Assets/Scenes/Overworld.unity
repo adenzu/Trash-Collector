@@ -229,7 +229,39 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1998084367}
+  - {fileID: 410128967}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &410128966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 410128967}
+  m_Layer: 0
+  m_Name: Home
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &410128967
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410128966}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 33.81, y: -1.57, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 312265729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -430,7 +462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: destinations.initialDestinations.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: 'destinations.initialPositions.Array.data[0]'
@@ -438,12 +470,16 @@ PrefabInstance:
       objectReference: {fileID: 1998084367}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: 'destinations.initialDestinations.Array.data[0]'
       value: 
       objectReference: {fileID: 1998084367}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: 'destinations.initialDestinations.Array.data[1]'
+      value: 
+      objectReference: {fileID: 410128967}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].sourceState
       value: Spawn
@@ -457,11 +493,27 @@ PrefabInstance:
       value: EnterShop
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].sourceState
+      value: ExitShop
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[4].sourceState
+      value: GoHome
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].destinationStates.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[1].destinationStates.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].destinationStates.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].destinationStates.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
@@ -473,6 +525,14 @@ PrefabInstance:
       value: EnterShop
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].destinationStates.Array.data[0].state
+      value: ExitShop
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].destinationStates.Array.data[0].state
+      value: GoHome
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].onTransition.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -482,6 +542,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].onTransition.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].onTransition.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[4].onTransition.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
@@ -509,6 +577,18 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].onTransition.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[4].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].onChangeToThis.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
       objectReference: {fileID: 0}
@@ -531,7 +611,19 @@ PrefabInstance:
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1593113224}
+      objectReference: {fileID: 1593113228}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].onTransition.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 584380760}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1593113228}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[4].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 584380760}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].onChangeToThis.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -557,6 +649,18 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].onTransition.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[4].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetDestination
       objectReference: {fileID: 0}
@@ -574,7 +678,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].onTransition.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: StartShopTime
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[4].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetDestination
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].onChangeToThis.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -602,7 +718,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UnityEngine.SpriteRenderer, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].onTransition.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: NPCController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.SpriteRenderer, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[4].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NPCController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.size
@@ -613,8 +741,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].onChangeToThis.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: NPCController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[4].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -637,6 +781,18 @@ PrefabInstance:
       value: Shop
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].onTransition.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Shop
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Shop
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[4].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Home
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].onChangeToThis.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Shop
       objectReference: {fileID: 0}
@@ -649,11 +805,27 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 584380760}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 584380760}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2081830464}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[1].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
@@ -663,6 +835,14 @@ PrefabInstance:
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[1].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ArrivedToDestination
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FinishedShopping
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AllTrue
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -685,6 +865,18 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].onTransition.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[4].onTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].onChangeToThis.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -697,11 +889,27 @@ PrefabInstance:
       value: NPCController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NPCController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[0].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
       propertyPath: stateMachine.stateMatrix.stateRows.Array.data[1].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[2].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: -3797247753338162856, guid: a02c892ef3be28448b4842893b486021, type: 3}
+      propertyPath: stateMachine.stateMatrix.stateRows.Array.data[3].destinationStates.Array.data[0].condition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1376630116017226895, guid: a02c892ef3be28448b4842893b486021, type: 3}
@@ -1860,6 +2068,11 @@ Tilemap:
 --- !u!1 &1593113224 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1454301840381989169, guid: a02c892ef3be28448b4842893b486021, type: 3}
+  m_PrefabInstance: {fileID: 601652200}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1593113228 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2143279014064627127, guid: a02c892ef3be28448b4842893b486021, type: 3}
   m_PrefabInstance: {fileID: 601652200}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1788302890
