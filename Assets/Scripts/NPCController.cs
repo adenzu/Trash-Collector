@@ -27,12 +27,21 @@ public class NPCController : MonoBehaviour
     {
         destinations.Initialize();
         stateMachine.Initialize();
+    }
+
+    void Update()
+    {
         stateMachine.NextState();
     }
 
     public void SetDestination(string destinationName)
     {
         navMeshAgent.SetDestination(destinations.GetDestination(destinationName));
+    }
+
+    public void ArrivedToDestination(bool[] bools)
+    {
+        bools[0] = !navMeshAgent.hasPath;
     }
 
     [Serializable]
