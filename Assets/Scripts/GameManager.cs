@@ -7,4 +7,12 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void AllTrue(bool[] bools)
+    {
+        for (int i = 0; i < bools.Length; i++)
+        {
+            bools[i] = true;
+        }
+    }
 }

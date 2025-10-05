@@ -27,62 +27,30 @@ public class NPCController : MonoBehaviour
     {
         destinations.Initialize();
         stateMachine.Initialize();
+        stateMachine.NextState();
     }
 
-    void Update()
+    public void SetDestination(string destinationName)
     {
-        Move();
-    }
-
-    public void DecideOnNextMove(bool[] result)
-    {
-        result[0] = destinations.Finished();
-    }
-
-    private void Move()
-    {
-        if (ReadyToMove())
-        {
-            MoveToNextDestination();
-        }
-    }
-
-    private void MoveToNextDestination()
-    {
-        navMeshAgent.SetDestination(destinations.Next());
-    }
-
-    private bool ReadyToMove()
-    {
-        return !destinations.Finished() && (!navMeshAgent.hasPath || navMeshAgent.isStopped);
+        navMeshAgent.SetDestination(destinations.GetDestination(destinationName));
     }
 
     [Serializable]
     private class Destinations
     {
         [SerializeField]
-        private Transform[] initialPositions;
+        private Transform[] initialDestinations;
 
-        private Queue<Vector3> positions;
+        private Dictionary<string, Vector3> destinations;
 
         public void Initialize()
         {
-            positions = new Queue<Vector3>(initialPositions.Select(transform => transform.position));
+            destinations = initialDestinations.ToDictionary(transform => transform.name, transform => transform.position);
         }
 
-        public Vector3 Next()
+        public Vector3 GetDestination(string destinationName)
         {
-            return positions.Dequeue();
-        }
-
-        public void Add(Vector3 position)
-        {
-            positions.Enqueue(position);
-        }
-
-        public bool Finished()
-        {
-            return 0 == positions.Count;
+            return destinations[destinationName];
         }
     }
 }

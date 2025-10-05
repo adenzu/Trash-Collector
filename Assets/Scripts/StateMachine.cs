@@ -20,10 +20,38 @@ public class StateMachine
 
     public void NextState()
     {
-        bool canChange = stateMatrix.EvaluateNextState(state, out string nextState);
-        if (canChange)
+        bool canTransition = stateMatrix.EvaluateNextState(state, out SourceState nextState);
+        if (canTransition)
         {
-            state = nextState;
+            nextState.SetOutsideState(ref state);
+        }
+    }
+
+    private readonly struct SourceState
+    {
+        public static SourceState Empty => empty;
+
+        private readonly string stateName;
+
+        private readonly UnityEvent onTransition;
+
+        private static readonly SourceState empty = new("", null);
+
+        public SourceState(string stateName, UnityEvent onTransition)
+        {
+            this.stateName = stateName;
+            this.onTransition = onTransition;
+        }
+
+        public readonly bool IsStateName(string stateName)
+        {
+            return this.stateName == stateName;
+        }
+
+        public readonly void SetOutsideState(ref string state)
+        {
+            state = stateName;
+            onTransition.Invoke();
         }
     }
 
@@ -33,17 +61,29 @@ public class StateMachine
         [SerializeField]
         private StateRow[] stateRows;
 
-        public bool EvaluateNextState(string currentState, out string nextState)
+        public bool EvaluateNextState(string currentState, out SourceState nextState)
         {
+            string nextStateName = "";
+
             foreach (var stateRow in stateRows)
             {
                 if (stateRow.IsSourceState(currentState))
                 {
-                    return stateRow.EvaluateNextState(out nextState);
+                    stateRow.EvaluateNextState(out nextStateName);
+                    break;
                 }
             }
 
-            nextState = "";
+            foreach (var stateRow in stateRows)
+            {
+                if (stateRow.IsSourceState(nextStateName))
+                {
+                    nextState = new SourceState(nextStateName, stateRow.GetOnTransition());
+                    return true;
+                }
+            }
+
+            nextState = SourceState.Empty;
             return false;
         }
 
@@ -57,26 +97,31 @@ public class StateMachine
             private DestinationState[] destinationStates;
 
             [SerializeField]
-            private UnityEvent onChangeToThis;
+            private UnityEvent onTransition;
 
             public bool IsSourceState(string state)
             {
                 return state == sourceState;
             }
 
-            public bool EvaluateNextState(out string nextState)
+            public bool EvaluateNextState(out string nextStateName)
             {
                 foreach (var destinationState in destinationStates)
                 {
                     if (destinationState.IsTheNextState())
                     {
-                        nextState = destinationState.GetState();
+                        nextStateName = destinationState.GetName();
                         return true;
                     }
                 }
 
-                nextState = "";
+                nextStateName = "";
                 return false;
+            }
+
+            public UnityEvent GetOnTransition()
+            {
+                return onTransition;
             }
 
             [Serializable]
@@ -90,7 +135,7 @@ public class StateMachine
 
                 private readonly bool[] conditionResult = new bool[1];
 
-                public string GetState()
+                public string GetName()
                 {
                     return state;
                 }
