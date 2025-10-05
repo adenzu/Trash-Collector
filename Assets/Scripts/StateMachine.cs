@@ -35,7 +35,6 @@ public class StateMachine
 
         public bool EvaluateNextState(string currentState, out string nextState)
         {
-
             foreach (var stateRow in stateRows)
             {
                 if (stateRow.IsSourceState(currentState))
