@@ -51,14 +51,14 @@ public class NPCController : MonoBehaviour
         navMeshAgent.SetDestination(destinations.GetDestination(destinationName));
     }
 
-    public void ArrivedToDestination(bool[] bools)
+    public void ArrivedToDestination(StateMachine.TransitionDecision decision)
     {
-        bools[0] = !navMeshAgent.hasPath;
+        decision.Decide(!navMeshAgent.hasPath);
     }
 
-    public void FinishedShopping(bool[] bools)
+    public void FinishedShopping(StateMachine.TransitionDecision decision)
     {
-        bools[0] = finishedShopping;
+        decision.Decide(finishedShopping);
     }
 
     public void StartShopTime()

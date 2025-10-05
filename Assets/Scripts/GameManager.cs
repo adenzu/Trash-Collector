@@ -8,11 +8,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void AllTrue(bool[] bools)
+    public void AlwaysTransition(StateMachine.TransitionDecision decision)
     {
-        for (int i = 0; i < bools.Length; i++)
-        {
-            bools[i] = true;
-        }
+        decision.Decide(true);
+    }
+
+    public void NeverTransition(StateMachine.TransitionDecision decision)
+    {
+        decision.Decide(false);
     }
 }

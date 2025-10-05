@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,6 +26,21 @@ public class StateMachine
         if (canTransition)
         {
             nextState.SetOutsideState(ref state);
+        }
+    }
+
+    public class TransitionDecision
+    {
+        private bool decision = false;
+
+        public void Decide(bool decision)
+        {
+            this.decision = decision;
+        }
+
+        public bool GetDecision()
+        {
+            return decision;
         }
     }
 
@@ -106,12 +123,32 @@ public class StateMachine
 
             public bool EvaluateNextState(out string nextStateName)
             {
+                List<(int, string)> candidateStates = new();
+                int probabilitySum = 0;
+                int randomResult = 0;
+
                 foreach (var destinationState in destinationStates)
                 {
-                    if (destinationState.IsTheNextState())
+                    if (destinationState.IsPossibleNextState())
                     {
-                        nextStateName = destinationState.GetName();
+                        candidateStates.Add((destinationState.GetProbabilityCoefficient(), destinationState.GetName()));
+                    }
+                }
+
+                probabilitySum = candidateStates.Select(i => i.Item1).Sum();
+                randomResult = UnityEngine.Random.Range(0, probabilitySum);
+
+                candidateStates.Sort((i1, i2) => i2.Item1.CompareTo(i1.Item1));
+                foreach ((var probabilityCoefficient, var stateName) in candidateStates)
+                {
+                    if (randomResult < probabilityCoefficient)
+                    {
+                        nextStateName = stateName;
                         return true;
+                    }
+                    else
+                    {
+                        randomResult -= probabilityCoefficient;
                     }
                 }
 
@@ -130,20 +167,28 @@ public class StateMachine
                 [SerializeField]
                 private string state;
 
-                [SerializeField]
-                private UnityEvent<bool[]> condition;
+                [SerializeField, Min(0)]
+                private int probabilityCoefficient;
 
-                private readonly bool[] conditionResult = new bool[1];
+                [SerializeField]
+                private UnityEvent<TransitionDecision> condition;
+
+                private readonly TransitionDecision transitionDecision = new();
 
                 public string GetName()
                 {
                     return state;
                 }
 
-                public bool IsTheNextState()
+                public bool IsPossibleNextState()
                 {
-                    condition.Invoke(conditionResult);
-                    return conditionResult[0];
+                    condition.Invoke(transitionDecision);
+                    return transitionDecision.GetDecision();
+                }
+
+                public int GetProbabilityCoefficient()
+                {
+                    return probabilityCoefficient;
                 }
             }
         }
