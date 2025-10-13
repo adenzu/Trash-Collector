@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,29 +6,65 @@ using UnityEngine.Events;
 public class InteractiveObject : MonoBehaviour
 {
     [SerializeField]
-    private LayerMask interactorLayerFilter;
+    private Interaction[] m_interactions;
 
     [SerializeField]
-    private string interactorTagFilter;
+    private InteractionOption m_option;
 
-    [SerializeField]
-    private UnityEvent<Collider2D> onOverLap;
-
-    public void InvokeOnOverlap(Collider2D invoker)
+    public void InvokeOnOverlap(GameObject interactor)
     {
-        if (IsTagAttached(invoker.gameObject) && InLayer(invoker.gameObject))
+        foreach (var interaction in m_interactions)
         {
-            onOverLap.Invoke(invoker);
+            if (interaction.CanInteractorTrigger(interactor))
+            {
+                if (!InvokeOnOverlapStep(interaction, interactor))
+                {
+                    break;
+                }
+            }
         }
     }
 
-    private bool IsTagAttached(GameObject invoker)
+    private bool InvokeOnOverlapStep(Interaction interaction, GameObject interactor)
     {
-        return invoker.CompareTag(interactorTagFilter);
+        interaction.InvokeOnOverlap(interactor);
+
+        return m_option switch
+        {
+            InteractionOption.All => true,
+            InteractionOption.Any => false,
+            _ => true,
+        };
     }
 
-    private bool InLayer(GameObject invoker)
+    [Serializable]
+    private class Interaction
     {
-        return (invoker.layer & interactorLayerFilter.value) != 0;
+        [SerializeField]
+        private string interactorTagFilter;
+
+        [SerializeField]
+        private UnityEvent<GameObject> onOverLap;
+
+        public bool CanInteractorTrigger(GameObject interactor)
+        {
+            return IsTagAttached(interactor);
+        }
+
+        public void InvokeOnOverlap(GameObject interactor)
+        {
+            onOverLap.Invoke(interactor);
+        }
+
+        private bool IsTagAttached(GameObject interactor)
+        {
+            return interactor.CompareTag(interactorTagFilter);
+        }
+    }
+
+    private enum InteractionOption
+    {
+        All,
+        Any,
     }
 }
