@@ -14,7 +14,7 @@ public static class Interactor
             bool isInteractiveObject = overlappedCollider.TryGetComponent(out InteractiveObject interactiveObject);
             if (isInteractiveObject)
             {
-                interactiveObject.InvokeOnOverlap(overlappedCollider);
+                interactiveObject.InvokeOnOverlap(collider);
             }
         }
     }
