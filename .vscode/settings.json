@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "Trash-Collector.sln"
+    "dotnet.defaultSolution": "trash collector.sln"
 }
