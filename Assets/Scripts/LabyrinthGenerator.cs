@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -16,8 +13,8 @@ public class LabyrinthGenerator : MonoBehaviour
 
     void Awake()
     {
-        m_cells = new uint[m_size.x, m_size.y];
-        Generate(0, 0);
+            m_cells = new uint[m_size.x, m_size.y];
+            Generate(0, 0);
     }
 
     private void Generate(int x, int y)
@@ -47,7 +44,6 @@ public class LabyrinthGenerator : MonoBehaviour
         }
     }
 
-
     private enum PathDirection
     {
         Left = 0b0001,
@@ -68,9 +64,9 @@ public class LabyrinthGenerator : MonoBehaviour
 
         bool[,] lookUpTable =
         {
-            {true, CellContainsDirection(cellX, cellY, PathDirection.Down), true},
-            {CellContainsDirection(cellX, cellY, PathDirection.Left), false, CellContainsDirection(cellX, cellY, PathDirection.Right)},
-            {true, CellContainsDirection(cellX, cellY, PathDirection.Up), true},
+            {true, !CellContainsDirection(cellX, cellY, PathDirection.Down), true},
+            {!CellContainsDirection(cellX, cellY, PathDirection.Left), m_cells[cellX, cellY] == 0, !CellContainsDirection(cellX, cellY, PathDirection.Right)},
+            {true, !CellContainsDirection(cellX, cellY, PathDirection.Up), true},
         };
 
         return lookUpTable[y % 3, x % 3];
