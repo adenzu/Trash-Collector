@@ -83,13 +83,22 @@ public class LabyrinthGenerator : MonoBehaviour
     void OnDrawGizmos()
     {
         if (m_cells == null) return;
-        for (int x = 0; x < m_size.x * m_actualToVirtualCellRatio; x++)
+        for (int x = 0; x < m_size.x * m_actualToVirtualCellRatio; x += 2)
         {
-            for (int y = 0; y < m_size.y * m_actualToVirtualCellRatio; y++)
+            for (int y = 0; y < m_size.y * m_actualToVirtualCellRatio; y += 2)
             {
                 Gizmos.color = IsTileWall(x, y) ? Color.black : Color.white;
-                Gizmos.DrawCube(m_tilemap.GetCellCenterWorld(m_tilemap.WorldToCell(transform.position + new Vector3(x, y, 0))), Vector3.one);
+                Gizmos.DrawCube(m_tilemap.GetCellCenterWorld(m_tilemap.WorldToCell(transform.position + new Vector3(x / 2, y / 2, 0))), Vector3.one);
             }
+            Gizmos.color = Color.black;
+            Gizmos.DrawCube(m_tilemap.GetCellCenterWorld(m_tilemap.WorldToCell(transform.position + new Vector3(x / 2, m_size.y * m_actualToVirtualCellRatio / 2, 0))), Vector3.one);
         }
+        for (int y = 0; y < m_size.y * m_actualToVirtualCellRatio; y += 2)
+        {
+            Gizmos.color = Color.black;
+            Gizmos.DrawCube(m_tilemap.GetCellCenterWorld(m_tilemap.WorldToCell(transform.position + new Vector3(m_size.x * m_actualToVirtualCellRatio / 2, y / 2, 0))), Vector3.one);
+        }
+        Gizmos.color = Color.black;
+        Gizmos.DrawCube(m_tilemap.GetCellCenterWorld(m_tilemap.WorldToCell(transform.position + new Vector3(m_size.x * m_actualToVirtualCellRatio / 2, m_size.y * m_actualToVirtualCellRatio / 2, 0))), Vector3.one);
     }
 }
