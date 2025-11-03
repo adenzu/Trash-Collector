@@ -468,10 +468,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929161301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fe7387fc03c9274fa2c1dc3c8e24bd7, type: 3}
+  m_Script: {fileID: 11500000, guid: 649c43232f5c94d4284708f7552851a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LabyrinthGenerator
-  m_size: {x: 48, y: 48}
+  m_limitBranch: 1
+  m_branchLengthLimit: 3
+  m_size: {x: 16, y: 16}
   m_tilemap: {fileID: 371551619}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
