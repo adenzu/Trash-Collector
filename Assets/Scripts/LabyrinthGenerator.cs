@@ -3,6 +3,12 @@ using UnityEngine.Tilemaps;
 
 public class LabyrinthGenerator : MonoBehaviour
 {
+    [SerializeField]
+    private bool m_limitBranch = false;
+
+    [SerializeField, Min(1)]
+    private int m_branchLengthLimit;
+
     [SerializeField, Min(0)]
     private Vector2Int m_size;
 
@@ -16,11 +22,13 @@ public class LabyrinthGenerator : MonoBehaviour
     void Awake()
     {
         m_cells = new uint[m_size.x, m_size.y];
-        Generate(0, 0);
+        Generate(0, 0, m_branchLengthLimit);
     }
 
-    private void Generate(int x, int y)
+    private void Generate(int x, int y, int length)
     {
+        if (m_limitBranch && length <= 0) return;
+
         (int x, int y, PathDirection direction)[] offsets =
         {
             (-1, 0, PathDirection.Left),
@@ -41,7 +49,8 @@ public class LabyrinthGenerator : MonoBehaviour
                 m_cells[x, y] |= (uint)offset.direction;
                 m_cells[newX, newY] |= (uint)GetOpposite(offset.direction);
 
-                Generate(newX, newY);
+                Generate(newX, newY, length - 1);
+                length = m_branchLengthLimit;
             }
         }
     }
