@@ -109,8 +109,7 @@ public class LabyrinthGenerator : MonoBehaviour
     private void SetTile(int x, int y)
     {
         Vector3Int tilePosition = m_tilemap.WorldToCell(transform.position + new Vector3(x, y, 0));
-        const int m_actualToVirtualCellRatioHalf = m_actualToVirtualCellRatio / 2;
-        if (IsVirtualCellWall(m_actualToVirtualCellRatioHalf * x, m_actualToVirtualCellRatioHalf * y))
+        if (IsVirtualCellWall(x, y))
         {
             SetTileWall(tilePosition);
         }
@@ -124,20 +123,20 @@ public class LabyrinthGenerator : MonoBehaviour
     {
         if (m_cells == null) return;
 
-        for (int x = 0; x < m_size.x * m_actualToVirtualCellRatio; x += 2)
+        for (int x = 0; x < m_size.x * m_actualToVirtualCellRatio; x++)
         {
-            for (int y = 0; y < m_size.y * m_actualToVirtualCellRatio; y += 2)
+            for (int y = 0; y < m_size.y * m_actualToVirtualCellRatio; y++)
             {
-                SetTile(x / 2, y / 2);
+                SetTile(x, y);
             }
-            SetTileWall(m_tilemap.WorldToCell(transform.position + new Vector3(x / 2, m_size.y * m_actualToVirtualCellRatio / 2, 0)));
+            SetTileWall(m_tilemap.WorldToCell(transform.position + new Vector3(x, m_size.y * m_actualToVirtualCellRatio, 0)));
         }
 
-        for (int y = 0; y < m_size.y * m_actualToVirtualCellRatio; y += 2)
+        for (int y = 0; y < m_size.y * m_actualToVirtualCellRatio; y++)
         {
-            SetTileWall(m_tilemap.WorldToCell(transform.position + new Vector3(m_size.x * m_actualToVirtualCellRatio / 2, y / 2, 0)));
+            SetTileWall(m_tilemap.WorldToCell(transform.position + new Vector3(m_size.x * m_actualToVirtualCellRatio, y, 0)));
         }
 
-        SetTilePath(m_tilemap.WorldToCell(transform.position + new Vector3(m_size.x * m_actualToVirtualCellRatio / 2, m_size.y * m_actualToVirtualCellRatio / 2, 0)));
+        SetTilePath(m_tilemap.WorldToCell(transform.position + new Vector3(m_size.x * m_actualToVirtualCellRatio, m_size.y * m_actualToVirtualCellRatio, 0)));
     }
 }
