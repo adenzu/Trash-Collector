@@ -11,10 +11,12 @@ public class LabyrinthGenerator : MonoBehaviour
 
     private uint[,] m_cells;
 
+    private const int m_actualToVirtualCellRatio = 4;
+
     void Awake()
     {
-            m_cells = new uint[m_size.x, m_size.y];
-            Generate(0, 0);
+        m_cells = new uint[m_size.x, m_size.y];
+        Generate(0, 0);
     }
 
     private void Generate(int x, int y)
@@ -59,17 +61,18 @@ public class LabyrinthGenerator : MonoBehaviour
 
     private bool IsTileWall(int x, int y)
     {
-        int cellX = x / 3;
-        int cellY = y / 3;
+        int cellX = x / m_actualToVirtualCellRatio;
+        int cellY = y / m_actualToVirtualCellRatio;
 
-        bool[,] lookUpTable =
+        bool[,] lookUpTable = new bool[m_actualToVirtualCellRatio, m_actualToVirtualCellRatio]
         {
-            {true, !CellContainsDirection(cellX, cellY, PathDirection.Down), true},
-            {!CellContainsDirection(cellX, cellY, PathDirection.Left), m_cells[cellX, cellY] == 0, !CellContainsDirection(cellX, cellY, PathDirection.Right)},
-            {true, !CellContainsDirection(cellX, cellY, PathDirection.Up), true},
+            {true, !CellContainsDirection(cellX, cellY, PathDirection.Down), !CellContainsDirection(cellX, cellY, PathDirection.Down), true},
+            {!CellContainsDirection(cellX, cellY, PathDirection.Left), m_cells[cellX, cellY] == 0, m_cells[cellX, cellY] == 0, !CellContainsDirection(cellX, cellY, PathDirection.Right)},
+            {!CellContainsDirection(cellX, cellY, PathDirection.Left), m_cells[cellX, cellY] == 0, m_cells[cellX, cellY] == 0, !CellContainsDirection(cellX, cellY, PathDirection.Right)},
+            {true, !CellContainsDirection(cellX, cellY, PathDirection.Up), !CellContainsDirection(cellX, cellY, PathDirection.Up), true},
         };
 
-        return lookUpTable[y % 3, x % 3];
+        return lookUpTable[y % m_actualToVirtualCellRatio, x % m_actualToVirtualCellRatio];
     }
 
     private bool CellContainsDirection(int x, int y, PathDirection direction)
@@ -80,9 +83,9 @@ public class LabyrinthGenerator : MonoBehaviour
     void OnDrawGizmos()
     {
         if (m_cells == null) return;
-        for (int x = 0; x < m_size.x * 3; x++)
+        for (int x = 0; x < m_size.x * m_actualToVirtualCellRatio; x++)
         {
-            for (int y = 0; y < m_size.y * 3; y++)
+            for (int y = 0; y < m_size.y * m_actualToVirtualCellRatio; y++)
             {
                 Gizmos.color = IsTileWall(x, y) ? Color.black : Color.white;
                 Gizmos.DrawCube(m_tilemap.GetCellCenterWorld(m_tilemap.WorldToCell(transform.position + new Vector3(x, y, 0))), Vector3.one);
