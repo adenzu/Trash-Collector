@@ -593,7 +593,7 @@ Transform:
   m_GameObject: {fileID: 856268032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 2, z: -10}
+  m_LocalPosition: {x: 2, y: 3.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -618,7 +618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1376630116017226895, guid: ff8d0c5faca68b64bbe9bf9f433cde05, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 1376630116017226895, guid: ff8d0c5faca68b64bbe9bf9f433cde05, type: 3}
       propertyPath: m_LocalPosition.z
@@ -655,6 +655,22 @@ PrefabInstance:
     - target: {fileID: 1454301840381989169, guid: ff8d0c5faca68b64bbe9bf9f433cde05, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2143279014064627127, guid: ff8d0c5faca68b64bbe9bf9f433cde05, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475574437971980169, guid: ff8d0c5faca68b64bbe9bf9f433cde05, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475574437971980169, guid: ff8d0c5faca68b64bbe9bf9f433cde05, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475574437971980169, guid: ff8d0c5faca68b64bbe9bf9f433cde05, type: 3}
+      propertyPath: m_Offset.y
+      value: -1.65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -749,7 +765,7 @@ Transform:
   m_GameObject: {fileID: 1478965148}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 2, z: -10}
+  m_LocalPosition: {x: 2, y: 3.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1036,13 +1052,13 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
-  m_Mode: 0
+  m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!1839735485 &1545600179
