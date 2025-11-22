@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 public class LabyrinthGenerator : MonoBehaviour
@@ -9,10 +11,10 @@ public class LabyrinthGenerator : MonoBehaviour
     private Tilemap m_referenceTilemap;
 
     [SerializeField]
-    private Tilemap[] m_wallTilemaps;
+    private TilemapWithFilter[] m_wallTilemaps;
 
     [SerializeField]
-    private Tilemap[] m_pathTilemaps;
+    private TilemapWithFilter[] m_pathTilemaps;
 
     [Header("Tiles")]
 
@@ -117,7 +119,7 @@ public class LabyrinthGenerator : MonoBehaviour
     {
         foreach (var tileMap in m_wallTilemaps)
         {
-            tileMap.SetTile(GetRelativeTilePosition(x, y), m_wallTile);
+            tileMap.TryGetTileSetter(x, y)(GetRelativeTilePosition(x, y), m_wallTile);
         }
     }
 
@@ -125,7 +127,7 @@ public class LabyrinthGenerator : MonoBehaviour
     {
         foreach (var tileMap in m_pathTilemaps)
         {
-            tileMap.SetTile(GetRelativeTilePosition(x, y), m_pathTile);
+            tileMap.TryGetTileSetter(x, y)(GetRelativeTilePosition(x, y), m_pathTile);
         }
     }
 
@@ -173,5 +175,23 @@ public class LabyrinthGenerator : MonoBehaviour
     {
         TransferLabyrinthToTilemapsDirectly();
         SetSurroundingWalls();
+    }
+
+    [Serializable]
+    private class TilemapWithFilter
+    {
+        [SerializeField]
+        private Tilemap m_tileamp;
+        [SerializeField]
+        private UnityEvent<int, int, bool[]> m_filter;
+
+        public Action<Vector3Int, TileBase> TryGetTileSetter(int x, int y)
+        {
+            bool[] filterValue = new bool[1];
+
+            m_filter.Invoke(x, y, filterValue);
+
+            return filterValue[0] ? ((p, t) => m_tileamp.SetTile(p, t)) : ((_, _) => { });
+        }
     }
 }
