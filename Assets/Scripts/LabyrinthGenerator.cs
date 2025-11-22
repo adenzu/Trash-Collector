@@ -3,14 +3,26 @@ using UnityEngine.Tilemaps;
 
 public class LabyrinthGenerator : MonoBehaviour
 {
+    [Header("Tilemaps")]
+
     [SerializeField]
-    private Tilemap m_tilemap;
+    private Tilemap m_referenceTilemap;
+
+    [SerializeField]
+    private Tilemap[] m_wallTilemaps;
+
+    [SerializeField]
+    private Tilemap[] m_pathTilemaps;
+
+    [Header("Tiles")]
 
     [SerializeField]
     private TileBase m_wallTile;
 
     [SerializeField]
     private TileBase m_pathTile;
+
+    [Header("Generation Configuration")]
 
     [SerializeField]
     private bool m_limitBranch = false;
@@ -96,47 +108,70 @@ public class LabyrinthGenerator : MonoBehaviour
         return 0 != (m_cells[x, y] & ((uint)direction));
     }
 
-    private void SetTileWall(Vector3Int tilePosition)
+    private Vector3Int GetRelativeTilePosition(int x, int y)
     {
-        m_tilemap.SetTile(tilePosition, m_wallTile);
+        return m_referenceTilemap.WorldToCell(transform.position + new Vector3(x, y, 0));
     }
 
-    private void SetTilePath(Vector3Int tilePosition)
+    private void SetTileWall(int x, int y)
     {
-        m_tilemap.SetTile(tilePosition, m_pathTile);
+        foreach (var tileMap in m_wallTilemaps)
+        {
+            tileMap.SetTile(GetRelativeTilePosition(x, y), m_wallTile);
+        }
+    }
+
+    private void SetTilePath(int x, int y)
+    {
+        foreach (var tileMap in m_pathTilemaps)
+        {
+            tileMap.SetTile(GetRelativeTilePosition(x, y), m_pathTile);
+        }
     }
 
     private void SetTile(int x, int y)
     {
-        Vector3Int tilePosition = m_tilemap.WorldToCell(transform.position + new Vector3(x, y, 0));
         if (IsVirtualCellWall(x, y))
         {
-            SetTileWall(tilePosition);
+            SetTileWall(x, y);
         }
         else
         {
-            SetTilePath(tilePosition);
+            SetTilePath(x, y);
         }
     }
 
-    private void DrawActualCells()
+    private void SetSurroundingWalls()
     {
-        if (m_cells == null) return;
+        Vector2Int cornerCell = m_size * m_actualToVirtualCellRatio;
 
+        for (int x = 0; x < cornerCell.x; x++)
+        {
+            SetTileWall(x, cornerCell.y);
+        }
+
+        for (int y = 0; y < cornerCell.y; y++)
+        {
+            SetTileWall(cornerCell.x, y);
+        }
+
+        SetTilePath(cornerCell.x, cornerCell.y);
+    }
+
+    private void TransferLabyrinthToTilemapsDirectly()
+    {
         for (int x = 0; x < m_size.x * m_actualToVirtualCellRatio; x++)
         {
             for (int y = 0; y < m_size.y * m_actualToVirtualCellRatio; y++)
             {
                 SetTile(x, y);
             }
-            SetTileWall(m_tilemap.WorldToCell(transform.position + new Vector3(x, m_size.y * m_actualToVirtualCellRatio, 0)));
         }
+    }
 
-        for (int y = 0; y < m_size.y * m_actualToVirtualCellRatio; y++)
-        {
-            SetTileWall(m_tilemap.WorldToCell(transform.position + new Vector3(m_size.x * m_actualToVirtualCellRatio, y, 0)));
-        }
-
-        SetTilePath(m_tilemap.WorldToCell(transform.position + new Vector3(m_size.x * m_actualToVirtualCellRatio, m_size.y * m_actualToVirtualCellRatio, 0)));
+    private void DrawActualCells()
+    {
+        TransferLabyrinthToTilemapsDirectly();
+        SetSurroundingWalls();
     }
 }
